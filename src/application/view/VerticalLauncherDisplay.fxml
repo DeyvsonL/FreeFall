@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.VerticalLauncherDisplayController">
+   <left>
+      <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="simulateButton" mnemonicParsing="false" onAction="#simulateButtonHandler" prefHeight="50.0" prefWidth="240.0" text="Simulate">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <VBox alignment="CENTER" layoutX="15.0" layoutY="85.0">
+               <children>
+                  <Label text="Mass (kg)">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Slider fx:id="massSlider" prefHeight="15.0" prefWidth="150.0">
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </Slider>
+                        <TextField fx:id="massField" prefHeight="25.0" prefWidth="100.0">
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="15.0" layoutY="85.0">
+               <children>
+                  <Label text="Height (m)">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Slider fx:id="heightSlider" prefHeight="15.0" prefWidth="150.0">
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </Slider>
+                        <TextField fx:id="heightField" prefHeight="25.0" prefWidth="100.0">
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="77.0">
+               <children>
+                  <Label text="Launch force (m/s)">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Label>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Slider fx:id="launchVelocitySlider" prefHeight="15.0" prefWidth="150.0">
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin></Slider>
+                        <TextField fx:id="launchVelocityField" prefHeight="25.0" prefWidth="100.0">
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin></TextField>
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="119.0">
+               <children>
+                  <Label text="Gravity acceleration (m/s²)">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Label>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Slider fx:id="gravitySlider" prefHeight="15.0" prefWidth="150.0" rotate="180.0">
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin></Slider>
+                        <TextField fx:id="gravityField" prefHeight="25.0" prefWidth="100.0">
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin></TextField>
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="161.0">
+               <children>
+                  <Label text="Air resistance">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Label>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Slider fx:id="airResistanceSlider" prefHeight="15.0" prefWidth="150.0">
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin></Slider>
+                        <TextField fx:id="airResistanceField" prefHeight="25.0" prefWidth="100.0">
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin></TextField>
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="15.0" layoutY="263.0">
+               <children>
+                  <Label text="Air resistance mode">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Label>
+               </children>
+            </VBox>
+            <ComboBox fx:id="airResistanceModeComboBox" prefHeight="25.0" prefWidth="200.0">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </ComboBox>
+         </children>
+         <BorderPane.margin>
+            <Insets left="15.0" top="20.0" />
+         </BorderPane.margin>
+      </VBox>
+
+   </left>
+   <top>
+      <Label text="Vertical Launcher with Air Resistance" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <LineChart fx:id="positionOverTimeChart" layoutX="10.0" layoutY="10.0" prefHeight="575.0" prefWidth="390.0" title="Position over time">
+               <xAxis>
+                  <NumberAxis label="Time (s)" prefHeight="40.0" prefWidth="147.0" side="BOTTOM" />
+               </xAxis>
+               <yAxis>
+                  <NumberAxis label="Y (m)" prefHeight="124.0" prefWidth="40.0" side="LEFT" />
+               </yAxis>
+            </LineChart>
+         </children>
+      </VBox>
+   </center>
+   <right>
+      <VBox prefHeight="575.0" prefWidth="281.0" BorderPane.alignment="CENTER">
+         <children>
+            <LineChart fx:id="velocityOverTimeChart" prefHeight="280.0" prefWidth="200.0" title="Velocity over time">
+               <xAxis>
+                  <NumberAxis label="Time (s)" prefHeight="40.0" prefWidth="147.0" side="BOTTOM" />
+               </xAxis>
+               <yAxis>
+                  <NumberAxis label="Velocity (m/s)" prefHeight="124.0" prefWidth="40.0" side="LEFT" />
+               </yAxis>
+            </LineChart>
+            <LineChart fx:id="accelerationOverTimeChart" prefHeight="280.0" prefWidth="200.0" title="Acceleration over time">
+               <xAxis>
+                  <NumberAxis label="Time (s)" prefHeight="40.0" prefWidth="147.0" side="BOTTOM" />
+               </xAxis>
+               <yAxis>
+                  <NumberAxis label="Accel. (m/s²)" prefHeight="124.0" prefWidth="40.0" side="LEFT" />
+               </yAxis>
+            </LineChart>
+         </children>
+      </VBox>
+   </right>
+</BorderPane>

@@ -1,4 +1,4 @@
-package ff.application;
+package application;
 
 import ff.physics.AirResistancePhysics;
 import ff.physics.AirResistancePhysics.DragMode;

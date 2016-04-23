@@ -1,4 +1,4 @@
-package ff.application;
+package application;
 
 /**
  * Created by Deyv on 19/04/2016.
