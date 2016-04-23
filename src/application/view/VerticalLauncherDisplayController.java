@@ -49,7 +49,7 @@ public class VerticalLauncherDisplayController {
     private TextField airResistanceField;
 
     @FXML
-    private ComboBox<AirResistancePhysics.DragMode> DragModeComboBox;
+    private ComboBox<AirResistancePhysics.DragMode> dragModeComboBox;
 
     // Charts
     @FXML
@@ -224,12 +224,12 @@ public class VerticalLauncherDisplayController {
         });
         airResistanceSlider.setValue(DEFAULT_AIR_RESISTANCE);
 
-        DragModeComboBox.getItems()
+        dragModeComboBox.getItems()
                 .addAll(AirResistancePhysics.DragMode.values());
-        DragModeComboBox.valueProperty().addListener(((observable, oldValue, newValue) -> {
+        dragModeComboBox.valueProperty().addListener(((observable, oldValue, newValue) -> {
             DragMode = newValue;
         }));
-        DragModeComboBox.getSelectionModel()
+        dragModeComboBox.getSelectionModel()
                 .select(AirResistancePhysics.DragMode.LINEAR);
     }
 
