@@ -85,8 +85,8 @@ public class VerticalLauncherDisplayController {
     private static final double MIN_LAUNCH_VELOCITY = 10;
     private static final double MAX_LAUNCH_VELOCITY = 200;
 
-    private static final double MIN_HEIGHT = 10;
-    private static final double MAX_HEIGHT = 200;
+    private static final double MIN_HEIGHT = 0;
+    private static final double MAX_HEIGHT = 1000;
 
     private static final double MIN_GRAVITY = -1;
     private static final double MAX_GRAVITY = -100;
@@ -97,7 +97,8 @@ public class VerticalLauncherDisplayController {
     //-- Default property values --//
 
     private static final double DEFAULT_MASS = 10;
-    private static final double DEFAULT_LAUNCH_VELOCITY = 50;
+    private static final double DEFAULT_HEIGHT = 10;
+    private static final double DEFAULT_LAUNCH_VELOCITY = 100;
     private static final double DEFAULT_GRAVITY = -9.81;
     private static final double DEFAULT_AIR_RESISTANCE = 0.05;
 
@@ -132,6 +133,25 @@ public class VerticalLauncherDisplayController {
             massSlider.setValue(value);
             mass = value;
         });
+        massSlider.setValue(DEFAULT_MASS);
+
+        heightSlider.setMin(MIN_HEIGHT);
+        heightSlider.setMax(MAX_HEIGHT);
+        heightSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            heightField.setText(newValue.toString());
+            height = newValue.doubleValue();
+        });
+        heightField.textProperty().addListener((observable, oldValue, newValue) -> {
+            double value = Float.parseFloat(newValue);
+            if (value < MIN_HEIGHT) {
+                value = MIN_HEIGHT;
+            } else if (value > MAX_HEIGHT) {
+                value = MAX_HEIGHT;
+            }
+            heightSlider.setValue(value);
+            height = value;
+        });
+        heightSlider.setValue(DEFAULT_MASS);
 
         gravitySlider.setMin(MAX_GRAVITY);
         gravitySlider.setMax(MIN_GRAVITY);
