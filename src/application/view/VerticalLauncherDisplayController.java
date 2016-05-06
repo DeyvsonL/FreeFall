@@ -5,10 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import ff.physics.AirResistancePhysics;
 
@@ -50,6 +47,9 @@ public class VerticalLauncherDisplayController {
 
     @FXML
     private ComboBox<AirResistancePhysics.DragMode> dragModeComboBox;
+
+    @FXML
+    private TextArea outputArea;
 
     // Charts
     @FXML
@@ -334,6 +334,17 @@ public class VerticalLauncherDisplayController {
             }
         }
 
+        outputArea.clear();
+
+        outputArea.appendText("Non air resistance pebble info:\n" +
+                "Ascend time: " + nonAirResistanceLauncher.getAscendTime() + " seconds\n" +
+                "Descend time: " + nonAirResistanceLauncher.getDescendTime() + " seconds\n" +
+                "Max height: " + nonAirResistanceLauncher.getMaxHeight() + " meters\n" +
+                "Velocity at ground: " + nonAirResistanceLauncher.getCurrentVelocity() + " m/s\n" +
+                "Acceleration at ground: " + nonAirResistanceLauncher.getCurrentAcceleration() + "m/s²");
+
+        outputArea.appendText("\n\n");
+
         while (airResistanceLauncher.getTime() == 0
                 || airResistanceLauncher.getHeight() >= 0) {
 
@@ -358,6 +369,13 @@ public class VerticalLauncherDisplayController {
                 airResistanceLauncher.calculateNextStep();
             }
         }
+
+        outputArea.appendText("Non air resistance pebble info:\n" +
+                "Ascend time: " + airResistanceLauncher.getAscendTime() + " seconds\n" +
+                "Descend time: " + airResistanceLauncher.getDescendTime() + " seconds\n" +
+                "Max height: " + airResistanceLauncher.getMaxHeight() + " meters\n" +
+                "Velocity at ground: " + airResistanceLauncher.getCurrentVelocity() + " m/s\n" +
+                "Acceleration at ground: " + airResistanceLauncher.getCurrentAcceleration() + "m/s²");
 
     }
 
