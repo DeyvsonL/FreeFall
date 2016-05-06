@@ -16,6 +16,7 @@ public class AirResistancePhysics {
 
     private double ascendTime;
     private double descendTime;
+    private double maxHeight;
 
     public AirResistancePhysics(double height, double currentVelocity, double mass, double airResistanceConstant, double deltaTime, double gravity, DragMode dragMode) {
         this.height = height;
@@ -26,6 +27,10 @@ public class AirResistancePhysics {
         this.deltaTime = deltaTime;
         this.gravity = gravity;
         this.dragMode = dragMode;
+
+        ascendTime = 0;
+        descendTime = 0;
+        maxHeight = height;
     }
 
     public double getHeight() {
@@ -42,14 +47,6 @@ public class AirResistancePhysics {
 
     public double getTime() {
         return time;
-    }
-
-    public double getAscendTime() {
-        return ascendTime;
-    }
-
-    public double getDescendTime() {
-        return descendTime;
     }
 
     public void calculateNextStep() {
@@ -69,9 +66,22 @@ public class AirResistancePhysics {
 
         if (height > currentHeight) {
             ascendTime += deltaTime;
+            maxHeight = height;
         } else if (height < currentHeight) {
             descendTime += deltaTime;
         }
+    }
+
+    public double getAscendTime() {
+        return ascendTime;
+    }
+
+    public double getDescendTime() {
+        return descendTime;
+    }
+
+    public double getMaxHeight() {
+        return maxHeight;
     }
 
     @Override
