@@ -82,7 +82,7 @@ public class VerticalLauncherDisplayController {
     private static final double MIN_MASS = 0.1;
     private static final double MAX_MASS = 100;
 
-    private static final double MIN_LAUNCH_VELOCITY = 10;
+    private static final double MIN_LAUNCH_VELOCITY = -200;
     private static final double MAX_LAUNCH_VELOCITY = 200;
 
     private static final double MIN_HEIGHT = 0;
@@ -105,7 +105,7 @@ public class VerticalLauncherDisplayController {
     //-- physics values (and chart resolution) --//
 
     private static final double PHYSICS_STEP_TIME = 0.001;
-    private static final int CHART_SKIP_PHYSICS_STEPS = 25;
+    private static final int CHART_SKIP_PHYSICS_STEPS = 10;
 
     //-- Methods --//
 
@@ -312,27 +312,11 @@ public class VerticalLauncherDisplayController {
         while (nonAirResistanceLauncher.getTime() == 0
                 || nonAirResistanceLauncher.getHeight() >= 0) {
 
-            double launcherTime = airResistanceLauncher.getTime();
-
-            double airResistancePosition = airResistanceLauncher.getHeight();
-            double airResistanceVelocity = airResistanceLauncher.getCurrentVelocity();
-            double airResistanceAcceleration = airResistanceLauncher.getCurrentAcceleration();
+            double launcherTime = nonAirResistanceLauncher.getTime();
 
             double nonAirResistancePosition = nonAirResistanceLauncher.getHeight();
             double nonAirResistanceVelocity = nonAirResistanceLauncher.getCurrentVelocity();
             double nonAirResistanceAcceleration = nonAirResistanceLauncher.getCurrentAcceleration();
-
-            if (airResistancePosition >= 0) {
-                positionOverTimeAirResistanceSeries.getData().add(new XYChart.Data<>(
-                        launcherTime, airResistancePosition
-                ));
-                velocityOverTimeAirResistanceSeries.getData().add(new XYChart.Data<>(
-                        launcherTime, airResistanceVelocity
-                ));
-                accelerationOverTimeAirResistanceSeries.getData().add(new XYChart.Data<>(
-                        launcherTime, airResistanceAcceleration
-                ));
-            }
 
             positionOverTimeNonAirResistanceSeries.getData().add(new XYChart.Data<>(
                     launcherTime, nonAirResistancePosition
@@ -346,8 +330,32 @@ public class VerticalLauncherDisplayController {
 
             // Jumping steps
             for (int i = 0; i < CHART_SKIP_PHYSICS_STEPS; i++) {
-                airResistanceLauncher.calculateNextStep();
                 nonAirResistanceLauncher.calculateNextStep();
+            }
+        }
+
+        while (airResistanceLauncher.getTime() == 0
+                || airResistanceLauncher.getHeight() >= 0) {
+
+            double launcherTime = airResistanceLauncher.getTime();
+
+            double airResistancePosition = airResistanceLauncher.getHeight();
+            double airResistanceVelocity = airResistanceLauncher.getCurrentVelocity();
+            double airResistanceAcceleration = airResistanceLauncher.getCurrentAcceleration();
+
+            positionOverTimeAirResistanceSeries.getData().add(new XYChart.Data<>(
+                    launcherTime, airResistancePosition
+            ));
+            velocityOverTimeAirResistanceSeries.getData().add(new XYChart.Data<>(
+                    launcherTime, airResistanceVelocity
+            ));
+            accelerationOverTimeAirResistanceSeries.getData().add(new XYChart.Data<>(
+                    launcherTime, airResistanceAcceleration
+            ));
+
+            // Jumping steps
+            for (int i = 0; i < CHART_SKIP_PHYSICS_STEPS; i++) {
+                airResistanceLauncher.calculateNextStep();
             }
         }
 
