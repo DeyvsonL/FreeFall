@@ -51,7 +51,9 @@ public class AirResistancePhysics {
 
     public void calculateNextStep() {
         double currentHeight = height;
-        double currentAcceleration = this.currentAcceleration;
+
+        currentVelocity = currentVelocity + currentAcceleration * deltaTime;
+        height += currentVelocity * deltaTime;
 
         switch (dragMode) {
             case LINEAR:
@@ -62,8 +64,6 @@ public class AirResistancePhysics {
                 break;
         }
 
-        currentVelocity = currentVelocity + currentAcceleration * deltaTime;
-        height += currentVelocity * deltaTime;
         time += deltaTime;
 
         if (height > currentHeight) {
