@@ -5,10 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import ff.physics.AirResistancePhysics;
 
@@ -51,6 +48,9 @@ public class VerticalLauncherDisplayController {
     @FXML
     private ComboBox<AirResistancePhysics.DragMode> dragModeComboBox;
 
+    @FXML
+    private TextArea outputArea;
+
     // Charts
     @FXML
     private LineChart<Double, Double> positionOverTimeChart;
@@ -82,7 +82,7 @@ public class VerticalLauncherDisplayController {
     private static final double MIN_MASS = 0.1;
     private static final double MAX_MASS = 100;
 
-    private static final double MIN_LAUNCH_VELOCITY = 10;
+    private static final double MIN_LAUNCH_VELOCITY = -200;
     private static final double MAX_LAUNCH_VELOCITY = 200;
 
     private static final double MIN_HEIGHT = 0;
@@ -105,7 +105,7 @@ public class VerticalLauncherDisplayController {
     //-- physics values (and chart resolution) --//
 
     private static final double PHYSICS_STEP_TIME = 0.001;
-    private static final int CHART_SKIP_PHYSICS_STEPS = 25;
+    private static final int CHART_SKIP_PHYSICS_STEPS = 10;
 
     //-- Methods --//
 
@@ -312,27 +312,11 @@ public class VerticalLauncherDisplayController {
         while (nonAirResistanceLauncher.getTime() == 0
                 || nonAirResistanceLauncher.getHeight() >= 0) {
 
-            double launcherTime = airResistanceLauncher.getTime();
-
-            double airResistancePosition = airResistanceLauncher.getHeight();
-            double airResistanceVelocity = airResistanceLauncher.getCurrentVelocity();
-            double airResistanceAcceleration = airResistanceLauncher.getCurrentAcceleration();
+            double launcherTime = nonAirResistanceLauncher.getTime();
 
             double nonAirResistancePosition = nonAirResistanceLauncher.getHeight();
             double nonAirResistanceVelocity = nonAirResistanceLauncher.getCurrentVelocity();
             double nonAirResistanceAcceleration = nonAirResistanceLauncher.getCurrentAcceleration();
-
-            if (airResistancePosition >= 0) {
-                positionOverTimeAirResistanceSeries.getData().add(new XYChart.Data<>(
-                        launcherTime, airResistancePosition
-                ));
-                velocityOverTimeAirResistanceSeries.getData().add(new XYChart.Data<>(
-                        launcherTime, airResistanceVelocity
-                ));
-                accelerationOverTimeAirResistanceSeries.getData().add(new XYChart.Data<>(
-                        launcherTime, airResistanceAcceleration
-                ));
-            }
 
             positionOverTimeNonAirResistanceSeries.getData().add(new XYChart.Data<>(
                     launcherTime, nonAirResistancePosition
@@ -346,10 +330,52 @@ public class VerticalLauncherDisplayController {
 
             // Jumping steps
             for (int i = 0; i < CHART_SKIP_PHYSICS_STEPS; i++) {
-                airResistanceLauncher.calculateNextStep();
                 nonAirResistanceLauncher.calculateNextStep();
             }
         }
+
+        outputArea.clear();
+
+        outputArea.appendText("Non air resistance pebble info:\n" +
+                "Ascend time: " + nonAirResistanceLauncher.getAscendTime() + " seconds\n" +
+                "Descend time: " + nonAirResistanceLauncher.getDescendTime() + " seconds\n" +
+                "Max height: " + nonAirResistanceLauncher.getMaxHeight() + " meters\n" +
+                "Velocity at ground: " + nonAirResistanceLauncher.getCurrentVelocity() + " m/s\n" +
+                "Acceleration at ground: " + nonAirResistanceLauncher.getCurrentAcceleration() + "m/s²");
+
+        outputArea.appendText("\n\n");
+
+        while (airResistanceLauncher.getTime() == 0
+                || airResistanceLauncher.getHeight() >= 0) {
+
+            double launcherTime = airResistanceLauncher.getTime();
+
+            double airResistancePosition = airResistanceLauncher.getHeight();
+            double airResistanceVelocity = airResistanceLauncher.getCurrentVelocity();
+            double airResistanceAcceleration = airResistanceLauncher.getCurrentAcceleration();
+
+            positionOverTimeAirResistanceSeries.getData().add(new XYChart.Data<>(
+                    launcherTime, airResistancePosition
+            ));
+            velocityOverTimeAirResistanceSeries.getData().add(new XYChart.Data<>(
+                    launcherTime, airResistanceVelocity
+            ));
+            accelerationOverTimeAirResistanceSeries.getData().add(new XYChart.Data<>(
+                    launcherTime, airResistanceAcceleration
+            ));
+
+            // Jumping steps
+            for (int i = 0; i < CHART_SKIP_PHYSICS_STEPS; i++) {
+                airResistanceLauncher.calculateNextStep();
+            }
+        }
+
+        outputArea.appendText("Non air resistance pebble info:\n" +
+                "Ascend time: " + airResistanceLauncher.getAscendTime() + " seconds\n" +
+                "Descend time: " + airResistanceLauncher.getDescendTime() + " seconds\n" +
+                "Max height: " + airResistanceLauncher.getMaxHeight() + " meters\n" +
+                "Velocity at ground: " + airResistanceLauncher.getCurrentVelocity() + " m/s\n" +
+                "Acceleration at ground: " + airResistanceLauncher.getCurrentAcceleration() + "m/s²");
 
     }
 

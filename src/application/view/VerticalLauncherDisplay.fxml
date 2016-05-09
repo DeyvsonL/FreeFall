@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
@@ -147,6 +148,13 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </ComboBox>
+            <Separator prefHeight="7.0" prefWidth="280.0" />
+            <Label prefHeight="18.0" prefWidth="83.0" text="Output info">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="outputArea" editable="false" prefHeight="225.0" prefWidth="280.0" wrapText="true" />
          </children>
          <BorderPane.margin>
             <Insets left="15.0" top="20.0" />
@@ -164,7 +172,7 @@
    <center>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <LineChart fx:id="positionOverTimeChart" layoutX="10.0" layoutY="10.0" prefHeight="575.0" prefWidth="390.0" title="Position over time">
+            <LineChart fx:id="positionOverTimeChart" layoutX="10.0" layoutY="10.0" prefHeight="693.0" prefWidth="333.0" title="Position over time">
                <xAxis>
                   <NumberAxis label="Time (s)" prefHeight="40.0" prefWidth="147.0" side="BOTTOM" />
                </xAxis>
@@ -176,9 +184,9 @@
       </VBox>
    </center>
    <right>
-      <VBox prefHeight="575.0" prefWidth="281.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="694.0" prefWidth="390.0" BorderPane.alignment="CENTER">
          <children>
-            <LineChart fx:id="velocityOverTimeChart" prefHeight="280.0" prefWidth="200.0" title="Velocity over time">
+            <LineChart fx:id="velocityOverTimeChart" prefHeight="356.0" prefWidth="390.0" title="Velocity over time">
                <xAxis>
                   <NumberAxis label="Time (s)" prefHeight="40.0" prefWidth="147.0" side="BOTTOM" />
                </xAxis>
@@ -186,7 +194,7 @@
                   <NumberAxis label="Velocity (m/s)" prefHeight="124.0" prefWidth="40.0" side="LEFT" />
                </yAxis>
             </LineChart>
-            <LineChart fx:id="accelerationOverTimeChart" prefHeight="280.0" prefWidth="200.0" title="Acceleration over time">
+            <LineChart fx:id="accelerationOverTimeChart" prefHeight="340.0" prefWidth="390.0" title="Acceleration over time">
                <xAxis>
                   <NumberAxis label="Time (s)" prefHeight="40.0" prefWidth="147.0" side="BOTTOM" />
                </xAxis>
