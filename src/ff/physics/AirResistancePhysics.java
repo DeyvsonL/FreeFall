@@ -54,18 +54,20 @@ public class AirResistancePhysics {
 
     public void calculateNextStep() {
         double currentHeight = height;
+        double currentAcceleration = this.currentAcceleration;
 
         switch (dragMode) {
             case LINEAR:
-                currentAcceleration = gravity - (airResistanceConstant * currentVelocity) / mass;
+                this.currentAcceleration = gravity - (airResistanceConstant * currentVelocity) / mass;
                 break;
             case SQUARE:
-                currentAcceleration = gravity - (airResistanceConstant * Math.abs(currentVelocity) * currentVelocity) / mass;
+                this.currentAcceleration = gravity - (airResistanceConstant * Math.abs(currentVelocity) * currentVelocity) / mass;
                 break;
         }
-        time += deltaTime;
+
         currentVelocity = currentVelocity + currentAcceleration * deltaTime;
         height += currentVelocity * deltaTime;
+        time += deltaTime;
 
         if (height > currentHeight) {
             ascendTime += deltaTime;
